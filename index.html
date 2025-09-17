@@ -1,10 +1,25 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<link rel="shadow-dance-text">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dancing Shadow Text</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage">
+    <h1 class="dancing-shadow" aria-label="Dancing Shadow">Dancing Shadow</h1>
 
-<div class="shadow-dance-container">
-    <h1 class="shadow-dance-text">what</h1>
-</div>
+    <p class="hint">Hover or tap the text to speed up the dance. Resize the window to see the responsive sizing.</p>
+  </main>
 
-
+  <!-- Optional: small script to toggle prefers-reduced-motion respect on click -->
+  <script>
+    // Respect user's reduced-motion preference by default. This toggle exists just for demo.
+    document.querySelector('.dancing-shadow').addEventListener('click', function () {
+      const el = document.documentElement;
+      el.style.setProperty('--anim-play-state', el.style.getPropertyValue('--anim-play-state') === 'paused' ? 'running' : 'paused');
+    });
+  </script>
+</body>
 </html>
