@@ -1,120 +1,24 @@
-/* Dancing shadow text — full CSS
-   - Responsive font sizing
-   - Multiple animated text-shadows for a "dancing" effect
-   - Respects prefers-reduced-motion
-*/
-
-:root{
-  --bg-1: #0f172a; /* deep navy */
-  --bg-2: #071126; /* darker blue */
-  --accent-1: #ff0057; /* pink */
-  --accent-2: #00d4ff; /* cyan */
-  --accent-3: #ffd400; /* amber */
-  --anim-duration: 3.6s;
-  --anim-play-state: running; /* toggled by script */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #111;
+  font-family: sans-serif;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  background: radial-gradient(1200px 800px at 10% 10%, rgba(0,212,255,0.06), transparent 8%),
-              linear-gradient(180deg,var(--bg-1),var(--bg-2));
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+.shadow {
+  font-size: 4rem;
   color: #fff;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:3rem;
+  text-transform: uppercase;
+  animation: shadow-dance 2s infinite;
 }
 
-.stage{
-  text-align:center;
-  max-width:1100px;
-}
-
-.dancing-shadow{
-  margin:0 auto 1.25rem auto;
-  /* responsive large display */
-  font-size: clamp(2.25rem, 8.5vw, 7.75rem);
-  line-height: 0.92;
-  font-weight:900;
-  letter-spacing: -0.02em;
-  text-transform: none;
-  color: #fff;
-  /* Put three colored shadows plus a soft blur for depth */
-  text-shadow:
-    6px 6px 0 var(--accent-1),
-    -6px -6px 0 var(--accent-2),
-    10px -4px 0 var(--accent-3),
-    0 18px 28px rgba(2,6,23,0.55);
-
-  /* animate the text-shadow property for a 'dancing' effect */
-  animation: shadow-dance var(--anim-duration) linear infinite;
-  animation-play-state: var(--anim-play-state);
-  transform-origin: 50% 50%;
-  will-change: text-shadow, transform;
-  cursor:pointer;
-}
-
-.hint{
-  margin:0;
-  opacity:0.85;
-  font-size:clamp(.8rem,1.2vw,.95rem);
-}
-
-/* speed-up on hover / focus (helps on desktop or when tapping on mobile) */
-.dancing-shadow:hover,
-.dancing-shadow:focus{
-  animation-duration: 1.4s;
-}
-
-/* Keyframes: cycle through different shadow offsets and tiny rotations/translates */
-@keyframes shadow-dance{
-  0%{
-    text-shadow: 6px 6px 0 var(--accent-1), -6px -6px 0 var(--accent-2), 10px -4px 0 var(--accent-3), 0 18px 28px rgba(2,6,23,0.55);
-    transform: translateY(0) rotate(0deg) skewX(0deg);
-  }
-  14%{
-    text-shadow: 10px 2px 0 var(--accent-1), -8px -2px 0 var(--accent-2), 12px -8px 0 var(--accent-3), 0 20px 30px rgba(2,6,23,0.55);
-    transform: translateY(-6px) rotate(-1.5deg) skewX(-1deg);
-  }
-  28%{
-    text-shadow: 8px -8px 0 var(--accent-1), -12px 6px 0 var(--accent-2), 6px 12px 0 var(--accent-3), 0 16px 26px rgba(2,6,23,0.5);
-    transform: translateY(2px) rotate(2deg) skewX(1.2deg);
-  }
-  42%{
-    text-shadow: 4px 10px 0 var(--accent-1), -4px -12px 0 var(--accent-2), 14px -2px 0 var(--accent-3), 0 22px 36px rgba(2,6,23,0.6);
-    transform: translateY(-3px) rotate(-2deg) skewX(-0.6deg);
-  }
-  56%{
-    text-shadow: -6px 6px 0 var(--accent-1), 6px -6px 0 var(--accent-2), -8px 10px 0 var(--accent-3), 0 12px 20px rgba(2,6,23,0.45);
-    transform: translateY(4px) rotate(1deg) skewX(0.5deg);
-  }
-  70%{
-    text-shadow: -10px -2px 0 var(--accent-1), 10px 2px 0 var(--accent-2), -12px -8px 0 var(--accent-3), 0 18px 28px rgba(2,6,23,0.55);
-    transform: translateY(-2px) rotate(-1deg) skewX(-1deg);
-  }
-  84%{
-    text-shadow: 6px -10px 0 var(--accent-1), -6px 10px 0 var(--accent-2), 8px -6px 0 var(--accent-3), 0 20px 32px rgba(2,6,23,0.58);
-    transform: translateY(0) rotate(1.5deg) skewX(0.8deg);
-  }
-  100%{
-    text-shadow: 6px 6px 0 var(--accent-1), -6px -6px 0 var(--accent-2), 10px -4px 0 var(--accent-3), 0 18px 28px rgba(2,6,23,0.55);
-    transform: translateY(0) rotate(0deg) skewX(0deg);
-  }
-}
-
-/* Accessibility: reduce motion */
-@media (prefers-reduced-motion: reduce){
-  :root{--anim-play-state: paused}
-  .dancing-shadow{animation:none}
-}
-
-/* small responsive tweaks */
-@media (max-width:520px){
-  .dancing-shadow{letter-spacing:0; line-height:1}
-  .hint{opacity:0.95}
+@keyframes shadow-dance {
+  0%   { text-shadow: 8px 8px #ff0057; }
+  25%  { text-shadow: -8px 8px #00d4ff; }
+  50%  { text-shadow: -8px -8px #ffd400; }
+  75%  { text-shadow: 8px -8px #00ff88; }
+  100% { text-shadow: 8px 8px #ff0057; }
 }
